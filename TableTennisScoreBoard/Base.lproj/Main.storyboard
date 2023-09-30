@@ -25,6 +25,9 @@
                                     <fontDescription key="titleFontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="16"/>
                                     <color key="baseForegroundColor" systemColor="systemCyanColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="rewind:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X6D-Ze-VcZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPk-EN-d3V">
                                 <rect key="frame" x="356" y="212" width="100" height="34"/>
@@ -34,6 +37,9 @@
                                     <fontDescription key="titleFontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="16"/>
                                     <color key="baseForegroundColor" systemColor="systemCyanColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="changeSide:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bzd-G9-umx"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Tt-We-iDV">
                                 <rect key="frame" x="356" y="309" width="100" height="32"/>
@@ -60,6 +66,9 @@
                                 <state key="normal">
                                     <imageReference key="image" image="gearshape.circle.fill" catalog="system" symbolScale="large"/>
                                 </state>
+                                <connections>
+                                    <action selector="selectColor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="24Z-Dh-pG1"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDy-Gu-f1T">
                                 <rect key="frame" x="105" y="114" width="130" height="147"/>
