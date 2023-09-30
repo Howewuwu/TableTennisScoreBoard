@@ -9,15 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // 定義遊戲分數和局數的變數
     var player1Score = 0
     var player1RoundScore = 0
     var player2Score = 0
     var player2RoundScore = 0
     
-    var deuceball = false
-    var ballCount = 0
+    // 宣告變數來處理「平分局」和「發球次數」
+    var deuceball = false // 是否進入到 "deuce" 狀態
+    var ballCount = 0 // 發球次數計數
     
+    // 紀錄每一個分數的狀態
     var scoreHistory : [(player01: Int, player02: Int)] = [(0,0)]
+    
+    // 使用 @IBOutlet 聯接 storyboard 元件
     
     @IBOutlet weak var player1RoundScoreLabel: UILabel!
     @IBOutlet weak var player1RoundScoreButtonOutlet: UIButton!
@@ -27,7 +32,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var leftServeLabel: UILabel!
     
-    
     @IBOutlet weak var player2RoundScoreLabel: UILabel!
     @IBOutlet weak var player2RoundScoreButtonOutlet: UIButton!
     @IBOutlet weak var player2NameTextfield: UITextField!
@@ -36,15 +40,16 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var rightServeLabel: UILabel!
     
-    
     @IBOutlet weak var deuceLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 點擊背景取消鍵盤
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
+        // 初始化界面
         deuceLabel.isHidden = true
         player1ScoreLabel.text = "\(player1Score)"
         player2ScoreLabel.text = "\(player2Score)"
@@ -57,15 +62,18 @@ class ViewController: UIViewController {
     // MARK: - viewDidLoad Over
     
     
+    
+    // 隱藏鍵盤的函數
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
-    
+    // 增加 player1 的分數
     @IBAction func player1ScorePlus(_ sender: UIButton) {
-        if ballCount == 2 {
-            ballCount = 0
-        }
+        
+        
+
+        
         ballCount += 1
         player1Score += 1
         player1ScoreLabel.text = "\(player1Score)"
@@ -73,20 +81,18 @@ class ViewController: UIViewController {
         
         roundScorePlus()
         changeServe()
-        
-        
-        
-        
     }
     
     
     
-    
-    
+    // 增加 player2 的分數
     @IBAction func player2ScorePlus(_ sender: UIButton) {
+        
+        // 發球計數邏輯和增加分數
         if ballCount == 2 {
             ballCount = 0
         }
+        
         ballCount += 1
         player2Score += 1
         player2ScoreLabel.text = "\(player2Score)"
@@ -94,9 +100,6 @@ class ViewController: UIViewController {
         
         roundScorePlus()
         changeServe()
-        
-        
-        
     }
     
     
@@ -117,9 +120,7 @@ class ViewController: UIViewController {
     
     
     
-    
-    
-    
+    // 重置所有物件和變數
     @IBAction func resetEveryThing(_ sender: UIButton) {
         player1Score = 0
         player2Score = 0
@@ -144,7 +145,7 @@ class ViewController: UIViewController {
     
     
     
-    
+    // 交換 player01 和 player02
     @IBAction func changeSide(_ sender: UIButton) {
         let player1Name = player1NameTextfield.text
         let player2Name = player2NameTextfield.text
@@ -181,8 +182,7 @@ class ViewController: UIViewController {
     
     
     
-    
-    
+    // 回上一分
     @IBAction func rewind(_ sender: UIButton) {
         if scoreHistory.count > 1 {
             scoreHistory.removeLast()
@@ -192,21 +192,36 @@ class ViewController: UIViewController {
             
             print("\(ballCount)")
             
-            if ballCount == 0 {
+            if previousScores.player01 < 10 || previousScores.player02 < 10 {
+                deuceLabel.isHidden = true
+                deuceball = false
+            }
+            
+            if !deuceball {
+                if ballCount == 0 {
+                    ballCount = 2
+                    changeServe()
+                    ballCount += 1
+                } else if ballCount == 1 {
+                    ballCount = 0
+                    changeServe()
+                  
+                }
+            } else {
                 ballCount = 2
                 changeServe()
             }
             
-            
             player1Score = previousScores.player01
             player2Score = previousScores.player02
-            changeServe()
-            ballCount += 1
+            
+            
+
             
         }
     }
     
-    
+    // 更換背景顏色
     @IBAction func selectColor(_ sender: UIButton) {
         // 創建 UIAlertController
         let alertController = UIAlertController(title: "選擇顏色", message: "請選擇一個背景顏色", preferredStyle: .actionSheet)
@@ -241,11 +256,6 @@ class ViewController: UIViewController {
         // 顯示 alertController
         present(alertController, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
     
     
     
@@ -310,11 +320,6 @@ class ViewController: UIViewController {
     
     
     
-    
-    
-    
-    
-    
     func changeServe () {
         if ballCount == 2 {
             if leftServeLabel.isHidden == false {
@@ -327,11 +332,6 @@ class ViewController: UIViewController {
             }
             ballCount = 0
         }
-        
-        
-        
-        
-        
     }
     
 }
